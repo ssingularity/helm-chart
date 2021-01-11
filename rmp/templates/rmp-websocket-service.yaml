@@ -18,8 +18,8 @@ spec:
           imagePullPolicy: IfNotPresent
           env:
             - name: EUREKA_SERVICE_URI
-              value: {{ .Values.eurekaURI}}
+              value: {{ .Values.eurekaURI }}
             - name: MONGO_URI
               value: 202.120.40.87:18643
             - name: EUREKA_CLIENT_ENABLED
-              value: true
+              value: "true"
