@@ -24,8 +24,8 @@ spec:
             - name: MONGO_PORT
               value: 18643
             - name: EUREKA_CLIENT_ENABLED
-              value: true
+              value: "true"
             - name: FEIGN_MOCK_SAMPLE
-              value: false
+              value: "false"
             - name: HBM_REPO_TYPE
               value: mongo

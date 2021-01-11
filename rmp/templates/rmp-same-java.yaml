@@ -20,4 +20,4 @@ spec:
             - name: EUREKA_SERVICE_URI
               value: {{ .Values.eurekaURI }}
             - name: EUREKA_CLIENT_ENABLED
-              value: true
+              value: "true"

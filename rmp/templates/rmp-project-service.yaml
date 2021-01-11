@@ -22,6 +22,6 @@ spec:
             - name: MONGO_URI
               value: 202.120.40.87:18643
             - name: EUREKA_CLIENT_ENABLED
-              value: true
+              value: "true"
             - name: FEIGN_MOCK_SAMPLE
-              value: false
+              value: "false"
