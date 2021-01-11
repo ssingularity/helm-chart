@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: k8sdeploy
+spec:
+  selector:
+    matchLabels:
+      app: k8sdeploy
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: k8sdeploy
+    spec:
+      containers:
+        - name: k8sdeploy
+          image: registry.cn-hangzhou.aliyuncs.com/pipipan/k8sdeployment:{{ .Values.imageVersion }}
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5000
+          volumeMounts:
+            - mountPath: /var/run/docker.sock
+              name: docker-sock
+          env:
+            - name: PRODUCTION
+              value: "true" # value can only be strings
+            - name: EUREKA_SERVICE_URI
+              value: http://{{ .Values.eurekaURI }}/eureka/
+      volumes:
+        - name: docker-sock
+          hostPath:
+              path: /var/run/docker.sock

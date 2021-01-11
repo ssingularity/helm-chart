@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: process-management
+spec:
+  selector:
+    matchLabels:
+      app: process-management
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: process-management
+    spec:
+      containers:
+        - name: process-management
+          image: registry.cn-hangzhou.aliyuncs.com/pipipan/process-management:{{ .Values.imageVersion }}
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8400
+          env:
+            - name: EUREKA_SERVICE_URI
+              value: {{ .Values.eurekaURI}}
+            - name: MONGO_URI
+              value: {{ .Values.mongoURI }}
+            - name: REDIS_URI
+              value: {{ .Values.redisURI }}
+            - name: ZIPKIN_URI
+              value: {{ .Values.zipkinURI }}

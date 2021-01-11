@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rmp-websocket-service
+spec:
+  selector:
+    matchLabels:
+      app: rmp-websocket-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: rmp-websocket-service
+    spec:
+      containers:
+        - name: rmp-websocket-service
+          image: registry.cn-hangzhou.aliyuncs.com/pipipan/rmp-websocket-service:{{ .Values.imageVersion }}
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: EUREKA_SERVICE_URI
+              value: {{ .Values.eurekaURI}}
+            - name: MONGO_URI
+              value: 202.120.40.87:18643
+            - name: EUREKA_CLIENT_ENABLED
+              value: true

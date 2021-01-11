@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rmp-resource-service
+spec:
+  selector:
+    matchLabels:
+      app: rmp-resource-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: rmp-resource-service
+    spec:
+      containers:
+        - name: rmp-resource-service
+          image: registry.cn-hangzhou.aliyuncs.com/pipipan/rmp-resource-service:{{ .Values.imageVersion }}
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: EUREKA_SERVICE_URI
+              value: {{ .Values.eurekaURI}}
+            - name: MONGO_URL
+              value: 202.120.40.87
+            - name: MONGO_PORT
+              value: 18643
+            - name: EUREKA_CLIENT_ENABLED
+              value: true
+            - name: FEIGN_MOCK_SAMPLE
+              value: false
+            - name: HBM_REPO_TYPE
+              value: mongo

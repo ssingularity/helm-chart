@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rmp-project-service
+spec:
+  selector:
+    matchLabels:
+      app: rmp-project-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: rmp-project-service
+    spec:
+      containers:
+        - name: rmp-project-service
+          image: registry.cn-hangzhou.aliyuncs.com/pipipan/rmp-project-service:{{ .Values.imageVersion }}
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: EUREKA_SERVICE_URI
+              value: {{ .Values.eurekaURI}}
+            - name: MONGO_URI
+              value: 202.120.40.87:18643
+            - name: EUREKA_CLIENT_ENABLED
+              value: true
+            - name: FEIGN_MOCK_SAMPLE
+              value: false

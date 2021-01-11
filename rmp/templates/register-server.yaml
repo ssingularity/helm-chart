@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: register-server
+spec:
+  selector:
+    matchLabels:
+      app: register-server
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: register-server
+    spec:
+      containers:
+        - name: register-server
+          image: registry.cn-hangzhou.aliyuncs.com/pipipan/register-server:v0.47
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080

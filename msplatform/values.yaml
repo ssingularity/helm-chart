@@ -1,0 +1,7 @@
+imageVersion: v0.24
+mongoURI: 202.120.40.87:18643
+kafkaURI: 202.120.40.87:10018
+eurekaURI: register-server:8080
+redisURI: 10.0.0.3
+influxURI: 10.0.0.3:8086
+zipkinURI: 10.0.0.3:23380

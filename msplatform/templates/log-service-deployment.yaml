@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: log-service
+spec:
+  selector:
+    matchLabels:
+      app: log-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: log-service
+    spec:
+      containers:
+        - name: log-service
+          image: registry.cn-hangzhou.aliyuncs.com/pipipan/log-service:{{ .Values.imageVersion }}
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8600
+          env:
+            - name: EUREKA_SERVICE_URI
+              value: {{ .Values.eurekaURI}}
+            - name: MONGO_URI
+              value: {{ .Values.mongoURI }}
+            - name: INFLUX_URI
+              value: {{ .Values.influxURI }}
+            - name: ZIPKIN_URI
+              value: {{ .Values.zipkinURI }}

@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: datasource-service
+spec:
+  selector:
+    matchLabels:
+      app: datasource-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: datasource-service
+    spec:
+      containers:
+        - name: datasource-service
+          image: registry.cn-hangzhou.aliyuncs.com/pipipan/datasource-service:{{ .Values.imageVersion }}
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8300
+          env:
+            - name: EUREKA_SERVICE_URI
+              value: {{ .Values.eurekaURI}}
+            - name: MONGO_URI
+              value: {{ .Values.mongoURI }}
+            - name: KAFKA_URI
+              value: {{ .Values.kafkaURI }}
+            - name: REDIS_URI
+              value: {{ .Values.redisURI }}
+            - name: ZIPKIN_URI
+              value: {{ .Values.zipkinURI }}

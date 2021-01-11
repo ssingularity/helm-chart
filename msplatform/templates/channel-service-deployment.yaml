@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: channel-service
+spec:
+  selector:
+    matchLabels:
+      app: channel-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: channel-service
+    spec:
+      containers:
+        - name: channel-service
+          image: registry.cn-hangzhou.aliyuncs.com/pipipan/channel-service:{{ .Values.imageVersion }}
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8200
+          env:
+            - name: EUREKA_SERVICE_URI
+              value: {{ .Values.eurekaURI}}
+            - name: MONGO_URI
+              value: {{ .Values.mongoURI }}
+            - name: REDIS_URI
+              value: {{ .Values.redisURI }}
+            - name: ZIPKIN_URI
+              value: {{ .Values.zipkinURI }}

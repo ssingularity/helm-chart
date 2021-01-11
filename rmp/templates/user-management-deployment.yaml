@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-management
+spec:
+  selector:
+    matchLabels:
+      app: user-management
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: user-management
+    spec:
+      containers:
+        - name: user-management
+          image: registry.cn-hangzhou.aliyuncs.com/pipipan/user-management:{{ .Values.imageVersion }}
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: EUREKA_SERVICE_URI
+              value: {{ .Values.eurekaURI}}
+            - name: MONGO_URI
+              value: 202.120.40.87:18643

@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: device-service
+spec:
+  selector:
+    matchLabels:
+      app: device-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: device-service
+    spec:
+      containers:
+        - name: device-service
+          image: registry.cn-hangzhou.aliyuncs.com/pipipan/device-service:{{ .Values.imageVersion }}
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8210
+          env:
+            - name: EUREKA_SERVICE_URI
+              value: {{ .Values.eurekaURI }}
+            - name: MONGO_URI
+              value: {{ .Values.mongoURI }}
+            - name: ZIPKIN_URI
+              value: {{ .Values.zipkinURI }}

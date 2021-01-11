@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rmp-same-service
+spec:
+  selector:
+    matchLabels:
+      app: rmp-same-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: rmp-same-service
+    spec:
+      containers:
+        - name: rmp-same-service
+          image: registry.cn-hangzhou.aliyuncs.com/pipipan/rmp-same-java:{{ .Values.imageVersion }}
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: EUREKA_SERVICE_URI
+              value: {{ .Values.eurekaURI}}
+            - name: EUREKA_CLIENT_ENABLED
+              value: true
