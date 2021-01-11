@@ -20,9 +20,9 @@ spec:
             - name: EUREKA_SERVICE_URI
               value: {{ .Values.eurekaURI }}
             - name: MONGO_URL
-              value: 202.120.40.87
+              value: "202.120.40.87"
             - name: MONGO_PORT
-              value: 18643
+              value: "18643"
             - name: EUREKA_CLIENT_ENABLED
               value: "true"
             - name: FEIGN_MOCK_SAMPLE
